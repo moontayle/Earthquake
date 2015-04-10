@@ -2,6 +2,8 @@ package paad.com.earthquake;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +14,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
+
+import javax.crypto.SealedObject;
 
 
 public class Earthquake extends ActionBarActivity {
@@ -28,6 +33,14 @@ public class Earthquake extends ActionBarActivity {
         setContentView(R.layout.main);
 
         updateFromPreferences();
+
+        // Use the Search Manager to find the SearchableInf related to this Activity
+        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
+        SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());
+
+        // Bind the activity's searchable info to the search view
+        SearchView searchView = (SearchView)findViewById(R.id.searchView);
+        searchView.setSearchableInfo(searchableInfo);
     }
 
 
